@@ -93,7 +93,7 @@ Prediction writes `pred_results_{save_name}.npy` under `--predict_dir`.
 ## Citation
 If you use RegFM in your research, please cite:
 
-Zijing Gao, et al. RegFM: a regulatory foundation model for gene expression prediction. bioRxiv, (2026).  
+Zijing Gao, et al. RegFM: an interpretable context-aware foundation model for human transcriptional regulation. bioRxiv, (2026).  
 *(DOI will be added upon public release.)*
 
 ## Contact
