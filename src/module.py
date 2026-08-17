@@ -65,7 +65,7 @@ class TransContextForMaskedLM(BertPreTrainedModel):
     def forward(
         self,
         input_ids=None,
-        epi_ids=None,
+        trans_ids=None,
         attention_mask=None,
         token_type_ids=None,
         position_ids=None,
@@ -79,7 +79,7 @@ class TransContextForMaskedLM(BertPreTrainedModel):
     ):
         outputs = self.bert(
             input_ids,
-            epi_ids,
+            trans_ids,
             attention_mask=attention_mask,
             token_type_ids=token_type_ids,
             position_ids=position_ids,

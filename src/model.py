@@ -402,7 +402,7 @@ class RegFM(BertPreTrainedModel):
     def forward(
         self,
         input_ids=None,
-        epi_ids=None,
+        trans_ids=None,
         dna_ids=None,
         attention_mask=None,
         dna_attention_mask=None,
@@ -414,7 +414,7 @@ class RegFM(BertPreTrainedModel):
     ):
         outputs_tf = self.tf_bert(
             input_ids=input_ids,
-            epi_ids=epi_ids,
+            epi_ids=trans_ids,
             attention_mask=attention_mask,
             token_type_ids=token_type_ids,
             position_ids=position_ids,

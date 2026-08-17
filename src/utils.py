@@ -285,7 +285,7 @@ def train(args, train_dataset, model, tokenizer, epi_tokenizer, dna_tokenizer):
                 "input_ids": batch[0],
                 "attention_mask": batch[1],
                 "labels": batch[3],
-                "epi_ids": batch[4],
+                "trans_ids": batch[4],
                 "dna_ids": batch[5],
                 "dna_attention_mask": batch[6],
             }
@@ -403,7 +403,7 @@ def evaluate(args, model, tokenizer, epi_tokenizer, dna_tokenizer, prefix="", ev
                 "input_ids": batch[0],
                 "attention_mask": batch[1],
                 "labels": batch[3],
-                "epi_ids": batch[4],
+                "trans_ids": batch[4],
                 "dna_ids": batch[5],
                 "dna_attention_mask": batch[6],
             }
@@ -464,7 +464,7 @@ def predict(args, model, tokenizer, epi_tokenizer, dna_tokenizer, prefix=""):
                 "input_ids": batch[0],
                 "attention_mask": batch[1],
                 "labels": batch[3],
-                "epi_ids": batch[4],
+                "trans_ids": batch[4],
                 "dna_ids": batch[5],
                 "dna_attention_mask": batch[6],
             }
@@ -534,7 +534,7 @@ def visual_cross(args, model, tokenizer, epi_tokenizer, dna_tokenizer, prefix=""
                 "input_ids": batch[0],
                 "attention_mask": batch[1],
                 "labels": batch[3],
-                "epi_ids": batch[4],
+                "trans_ids": batch[4],
                 "dna_ids": batch[5],
                 "dna_attention_mask": batch[6],
             }
