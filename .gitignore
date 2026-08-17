@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Env
+.env
+.venv/
+venv/
+env/
+
+# Model / data artifacts (keep repo small)
+*.pth
+*.pt
+*.ckpt
+*.bin
+*.npy
+*.npz
+*.h5
+*.parquet
+*.h5ad
+
+# Logs / caches
+runs/
+logs/
+wandb/
+cached_*/
+*.log
