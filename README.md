@@ -23,42 +23,51 @@ Download the checkpoint from the Hub, then point `--cis_model_name_or_path`, `--
 
 ## Installation
 
-Requirements:
-1. Python 3.11
-2. CUDA 11.8 (compatible with the PyTorch build below)
-3. Packages:
-   - torch (2.2.2, CUDA 11.8 build)
-   - tokenizers (0.15.2)
-   - numpy, tqdm, sentencepiece, sacremoses, filelock, requests, boto3
-   - tensorboard (optional, for training logs)
+- Python 3.11
+- CUDA 11.8 (for the PyTorch build below)
+- torch 2.2.2 (CUDA 11.8), tokenizers 0.15.2, plus numpy, tqdm, sentencepiece, sacremoses, filelock, requests, boto3, huggingface_hub; tensorboard if you want training logs
 
 ```bash
 pip install -e .
 ```
 
-This installs RegFM together with the customized `transformers` under `src/transformers`.
-
-or, after pushing to GitHub:
+This also installs the local `transformers` under `src/transformers` — `import transformers` should resolve to that copy.
 
 ```bash
 pip install git+https://github.com/ZjGaothu/RegFM.git
 ```
 
-## Usage
+## Inference
 
-Edit path placeholders in the scripts (`MODEL_PATH`, data dirs, tokenizers/configs), then:
+First call downloads the checkpoint and tokenizers:
+
+```python
+from regfm import RegFM
+
+model = RegFM.from_pretrained("Deku21/RegFM", device="cuda")  # PBMC by default
+
+pred = model.predict_expression(
+    dna_sequence=dna,          # DNA string
+    trans_expression=trans,    # length-2103, order is model.tfcr_order
+)
+print(pred)
+```
+
+`variant="HVG"` or `"AllProtein"` if you need those. A local snapshot directory works instead of the repo id.
+
+- one gene: `RegFM_single_query_demo.ipynb`
+- held-out PBMC cell type (CD8 TEM 1): `RegFM_geneexp_predict_demo.ipynb` — model comes from the Hub; DNA / TF / expression matrices you still point to locally
+
+## Training / batch prediction
+
+Fill in the path placeholders in the scripts, then:
 
 ```bash
-# Training
 bash scripts/run_train.sh
-
-# Prediction
 bash scripts/run_predict.sh
 ```
 
-The scripts set `PYTHONPATH` to `src/` automatically.
-
-For a single-cell-line walkthrough, see `RegFM_geneexp_predict_demo.ipynb`: it uses a model trained with leave-one-out on PBMC data, then runs prediction on the held-out **CD8 TEM 1** cell type.
+`PYTHONPATH` is set to `src/` in the scripts. Predictions are written as `pred_results_{save_name}.npy` under `--predict_dir`.
 
 ### Main arguments
 
@@ -67,8 +76,8 @@ For a single-cell-line walkthrough, see `RegFM_geneexp_predict_demo.ipynb`: it u
 | `--tfcr_dir` | TF / CR input directory |
 | `--exp_dir` | Expression input directory |
 | `--dna_dir` | Cis-DNA input directory |
-| `--trans_model_name_or_path` | Trans-context transformer pretrained checkpoint  |
-| `--cis_model_name_or_path` | Cis-DNA pretrained checkpoint  |
+| `--trans_model_name_or_path` | Trans-context transformer pretrained checkpoint |
+| `--cis_model_name_or_path` | Cis-DNA pretrained checkpoint |
 | `--trans_tokenizer_name` | TF tokenizer (`vocab.txt`) |
 | `--exp_tokenizer_name` | Expression tokenizer (`vocab.txt`) |
 | `--dna_tokenizer_name` | DNA tokenizer (`.json`) |
@@ -88,13 +97,10 @@ For a single-cell-line walkthrough, see `RegFM_geneexp_predict_demo.ipynb`: it u
 | `--save_name` | Tag for prediction file (`pred_results_{save_name}.npy`) |
 | `--n_process` | Processes for feature conversion |
 
-Prediction writes `pred_results_{save_name}.npy` under `--predict_dir`.
-
 ## Citation
 If you use RegFM in your research, please cite:
 
-Zijing Gao, et al. RegFM: an interpretable context-aware foundation model for human transcriptional regulation. bioRxiv, (2026).  
-*(DOI will be added upon public release.)*
+Zijing Gao, et al. RegFM: an interpretable context-aware foundation model for human transcriptional regulation. bioRxiv (2026). https://doi.org/10.64898/2026.08.17.744355
 
 ## Contact
 

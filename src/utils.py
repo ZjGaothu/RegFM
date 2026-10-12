@@ -169,9 +169,13 @@ def load_finetuned_checkpoint(checkpoint_dir, device, config=None):
     """
     whole_path = os.path.join(checkpoint_dir, "modelwhole.pth")
     state_path = os.path.join(checkpoint_dir, "model.pth")
+    bin_path = os.path.join(checkpoint_dir, "pytorch_model.bin")
 
-    if config is not None and os.path.isfile(state_path):
-        return _load_state_dict_into_regfm(config, state_path, device)
+    if config is not None:
+        if os.path.isfile(state_path):
+            return _load_state_dict_into_regfm(config, state_path, device)
+        if os.path.isfile(bin_path):
+            return _load_state_dict_into_regfm(config, bin_path, device)
 
     if os.path.isfile(whole_path):
         _register_legacy_pickle_aliases()

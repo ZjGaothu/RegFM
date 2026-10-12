@@ -33,7 +33,7 @@ setup(
     long_description=open("README.md", "r", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
     keywords="genomics gene-expression regulatory deep-learning transformer",
-    url="https://github.com/<your-org>/RegFM",
+    url="https://github.com/ZjGaothu/RegFM",
     # Everything under src/ is the install root:
     #   src/transformers/  -> import transformers
     #   src/model.py       -> import model
@@ -46,9 +46,11 @@ setup(
         "module",
         "dataset",
         "utils",
+        "custom_config",
     ],
     install_requires=[
         "numpy",
+        "huggingface_hub",
         "tokenizers==0.15.2",
         "boto3",
         "filelock",
